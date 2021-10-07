@@ -13,35 +13,42 @@
         <RelativeLayout
             android:id="@+id/post"
             android:layout_above="@id/bottomnavigation"
+            android:background="@color/lightBlue"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/lay1"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15sp"
-                android:layout_marginTop="25sp"
-                android:layout_marginBottom="10sp"
-                android:orientation="horizontal"
-                android:weightSum="5">
+                android:layout_height="?attr/actionBarSize"
+                android:background="#f2f2f2"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
                     android:id="@+id/txtUserName"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="4dp"
                     android:fontFamily="@font/bold"
-                    android:text=""
+                    android:text="Malith Ileperuma"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="19dp" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="end"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/regular"
+                    android:src="@drawable/ic_power"
+                    android:textColor="@color/white" />
 
 
-
-            </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
             <androidx.core.widget.NestedScrollView
-                android:layout_below="@id/lay1"
+                android:layout_below="@id/toolbar"
                 android:id="@+id/lay6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -60,7 +67,6 @@
                         android:padding="4dp"
                         android:scrollbars="vertical" >
 
-
                     </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
@@ -75,6 +81,7 @@
             android:id="@+id/bottomnavigation"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
+            android:background="#f2f2f2"
             android:layout_height="50sp">
 
             <LinearLayout
@@ -82,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:paddingVertical="5sp"
                 android:orientation="horizontal">
 
                 <ImageView
