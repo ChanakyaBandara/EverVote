@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backlogin"
     tools:context=".Registration">
 
     <RelativeLayout
@@ -19,14 +20,6 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
-
-            <View
-                android:id="@+id/dot1"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/dot" />
 
             <TextView
                 android:layout_centerHorizontal="true"
