@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,14 +20,16 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sylabs.evervote.Modles.Candidate;
 import com.sylabs.evervote.Modles.Post;
+import com.sylabs.evervote.Services.Follow;
 
 public class CandidateProfile extends AppCompatActivity {
 
     private String CandidateID;
     private String CandidateName;
+    private String FollowID;
     private TextView candidateProfileName,candidateProfileDesc,candidateProfileFollowers,candidateProfileParty;
     private ImageView candidateProfileImg;
-
+    private Button candidateFollowBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +52,26 @@ public class CandidateProfile extends AppCompatActivity {
         candidateProfileFollowers = (TextView) findViewById(R.id.candidateProfileFollowers);
         candidateProfileParty = (TextView) findViewById(R.id.candidateProfileParty);
         candidateProfileImg = (ImageView) findViewById(R.id.candidateProfileImg);
+        candidateFollowBtn = (Button) findViewById(R.id.candidateFollowBtn);
+
+        Follow follow = new Follow();
+        follow.getFollowedIDbyInterface(CandidateID,followID -> {
+            if (followID != null){
+                FollowID = followID;
+                Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_SHORT).show();
+                candidateFollowBtn.setText("Unfollow");
+                candidateFollowBtn.setBackgroundResource(R.drawable.btn_unfollow);
+            }else {
+                Toast.makeText(getApplicationContext(), "Not Followed", Toast.LENGTH_SHORT).show();
+                candidateFollowBtn.setText("Follow");
+                candidateFollowBtn.setBackgroundResource(R.drawable.btn_follow);
+            }
+        });
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Candidates").child(CandidateID);;
 
-        query.addListenerForSingleValueEvent(valueEventListener);
-        
+        query.addValueEventListener(valueEventListener);
+
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -108,5 +126,21 @@ public class CandidateProfile extends AppCompatActivity {
         intent.putExtra("CID",CandidateID);
         intent.putExtra("CName",CandidateName);
         startActivity(intent);
+    }
+
+    public void followCandidate(View view) {
+        Follow follow = new Follow();
+        follow.getFollowedIDbyInterface(CandidateID, followID -> {
+            if (followID != null){
+                FollowID = followID;
+                follow.Unfollow(CandidateID,followID);
+                candidateFollowBtn.setText("Follow");
+                candidateFollowBtn.setBackgroundResource(R.drawable.btn_follow);
+            }else {
+                follow.newFollower(CandidateID);
+                candidateFollowBtn.setText("Unfollow");
+                candidateFollowBtn.setBackgroundResource(R.drawable.btn_unfollow);
+            }
+        });
     }
 }
