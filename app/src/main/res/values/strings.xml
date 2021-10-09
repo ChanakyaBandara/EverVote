@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Voters Choice</string>
+    
+    <string-array name="searchCategories">
+        <item>All</item>
+        <item>Following</item>
+        <item>Not following</item>
+    </string-array>
 </resources>
