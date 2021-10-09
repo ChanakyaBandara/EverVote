@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,11 +25,12 @@ import com.sylabs.evervote.RecycleViews.Recycleview_Candidate_config;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchCandidate extends AppCompatActivity {
+public class SearchCandidate extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private RecyclerView recyclerView;
     private List<Candidate> Candidatelist = new ArrayList<>();
+    private int item;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,12 @@ public class SearchCandidate extends AppCompatActivity {
         Query query = FirebaseDatabase.getInstance().getReference().child("Candidates");
 
         query.addListenerForSingleValueEvent(valueEventListener);
+
+        Spinner spinner = findViewById(R.id.dropdown1);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.searchCategories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -82,5 +92,17 @@ public class SearchCandidate extends AppCompatActivity {
     public void goToProfile(View view) {
         Intent intent = new Intent(SearchCandidate.this, Profile.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        item = adapterView.getSelectedItemPosition();
+        item = item+1;
+        Toast.makeText(SearchCandidate.this, "Spinner Item" + item, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
