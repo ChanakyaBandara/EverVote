@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EverVote">
-        <activity android:name=".Donation"></activity>
+        <activity android:name=".Donation"/>
         <activity android:name=".Feedback" />
         <activity android:name=".Complaint" />
         <activity android:name=".CandidateProfile" />
@@ -18,8 +18,8 @@
         <activity android:name=".SearchCandidate" />
         <activity android:name=".Registration" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplashScreen" />
-        <activity android:name=".Login">
+        <activity android:name=".Login" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

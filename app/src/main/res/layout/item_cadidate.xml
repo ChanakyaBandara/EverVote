@@ -10,8 +10,8 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         card_view:cardElevation="0dp"
-        card_view:cardCornerRadius="20sp"
-        card_view:cardBackgroundColor="@color/grey">
+        card_view:cardCornerRadius="10sp"
+        card_view:cardBackgroundColor="@color/lightgray">
 
         <LinearLayout
             android:layout_width="match_parent"
