@@ -141,7 +141,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         item = adapterView.getSelectedItemPosition();
         item = item+1;
-        Toast.makeText(Registration.this, "Spinner Item" + item, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Registration.this, "Spinner Item" + item, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/logoimg"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/voters_icon" />
 
     <TextView
         android:layout_width="wrap_content"
