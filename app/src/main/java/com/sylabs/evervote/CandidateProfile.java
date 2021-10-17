@@ -68,8 +68,7 @@ public class CandidateProfile extends AppCompatActivity {
             }
         });
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Candidates").child(CandidateID);;
-
+        Query query = FirebaseDatabase.getInstance().getReference().child("Candidates").child(CandidateID);
         query.addValueEventListener(valueEventListener);
 
     }
