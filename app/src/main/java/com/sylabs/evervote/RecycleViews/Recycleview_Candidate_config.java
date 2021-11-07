@@ -39,7 +39,6 @@ public class Recycleview_Candidate_config {
         private TextView candidateName;
         private TextView candidateParty;
         private ImageView candidatePic;
-        private Button followbtn;
         private String CID;
 
 
@@ -51,7 +50,6 @@ public class Recycleview_Candidate_config {
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             candidateName = (TextView) itemView.findViewById(R.id.candidateItemName);
             candidateParty = (TextView) itemView.findViewById(R.id.candidateItemParty);
-            followbtn = (Button) itemView.findViewById(R.id.candidateItemFollowBtn);
             candidatePic = (ImageView) itemView.findViewById(R.id.candidateItemImg);
 
             cardView.setOnClickListener(new View.OnClickListener() {

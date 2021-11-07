@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,12 +24,20 @@ import com.sylabs.evervote.RecycleViews.Recycleview_Candidate_config;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchCandidate extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class SearchCandidate extends AppCompatActivity{
 
-    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private RecyclerView recyclerView;
-    private List<Candidate> Candidatelist = new ArrayList<>();
+    private List<Candidate> CandidateList = new ArrayList<>();
+    private List<Candidate> SpinnerFilteredList = new ArrayList<>();
+    private List<Candidate> SearchFilteredList = new ArrayList<>();
+    private List<String> followedCandidateIdList = new ArrayList<>();
+    private List<String> CandidateKeys = new ArrayList<String>();
+    private List<String> SpinnerFilteredKeys = new ArrayList<String>();
+    private List<String> SearchFilteredKeys = new ArrayList<String>();
+    private FirebaseAuth mAuth;
+    private String currentUId;
     private int item;
+    Spinner spinner;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,29 +45,76 @@ public class SearchCandidate extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_search_candidate);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Candidates");
-
+        Query query2 = FirebaseDatabase.getInstance().getReference().child("Followers").orderByChild("userId").equalTo(currentUId);
         query.addListenerForSingleValueEvent(valueEventListener);
+        query2.addListenerForSingleValueEvent(valueEventListener2);
 
-        Spinner spinner = findViewById(R.id.dropdown1);
+        spinner = findViewById(R.id.dropdown1);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.searchCategories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerChangeHandler();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void spinnerChangeHandler() {
+        int items = spinner.getSelectedItemPosition();
+        switch(items) {
+            case 1:
+                getFollowedList();
+                break;
+            case 2:
+                getUnFollowedList();
+                break;
+            case 0:
+            default:
+                SpinnerFilteredKeys = new ArrayList<>(CandidateKeys);
+                SpinnerFilteredList = new ArrayList<>(CandidateList);
+        }
+        updateRecycleView(SpinnerFilteredList,SpinnerFilteredKeys);
+    }
+
+    private void getFollowedList() {
+        SpinnerFilteredList.clear();
+        SpinnerFilteredKeys.clear();
+        for (Candidate candidate : CandidateList){
+            if(followedCandidateIdList.contains(candidate.getID())){
+                SpinnerFilteredList.add(candidate);
+                SpinnerFilteredKeys.add(candidate.getID());
+            }
+        }
+    }
+
+    private void getUnFollowedList() {
+        SpinnerFilteredList.clear();
+        SpinnerFilteredKeys.clear();
+        for (Candidate candidate : CandidateList){
+            if(!followedCandidateIdList.contains(candidate.getID())){
+                SpinnerFilteredList.add(candidate);
+                SpinnerFilteredKeys.add(candidate.getID());
+            }
+        }
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()){
-                //Toast.makeText(dashboard.this, "Test Query", Toast.LENGTH_LONG).show();
-                Log.d("ABC",dataSnapshot.toString());
-                Candidatelist.clear();
-                List<String> Keys = new ArrayList<String>();
+                CandidateList.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    Log.d("ABC",keyNode.toString());
-                    Log.d("ABC",keyNode.getKey());
                     Candidate candidate = new Candidate();
                     candidate.setID(keyNode.getKey());
                     candidate.setName(keyNode.child("Name").getValue(String.class));
@@ -68,11 +122,10 @@ public class SearchCandidate extends AppCompatActivity implements AdapterView.On
                     candidate.setHistory(keyNode.child("History").getValue(String.class));
                     candidate.setFollowers(String.valueOf(keyNode.child("Followers").getValue(Integer.class)));
                     candidate.setImgURL(keyNode.child("ImgURL").getValue(String.class));
-                    Candidatelist.add(candidate);
-                    Keys.add(keyNode.getKey());
+                    CandidateList.add(candidate);
+                    CandidateKeys.add(keyNode.getKey());
                 }
-                new Recycleview_Candidate_config().setConfig(recyclerView,SearchCandidate.this,Candidatelist,Keys);
-
+                spinnerChangeHandler();
             }else{
                 Toast.makeText(SearchCandidate.this, "No Data Found !", Toast.LENGTH_LONG).show();
             }
@@ -84,6 +137,26 @@ public class SearchCandidate extends AppCompatActivity implements AdapterView.On
         }
     };
 
+    ValueEventListener valueEventListener2 = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists() && dataSnapshot.hasChildren()){
+                for(DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    followedCandidateIdList.add(keyNode.child("CID").getValue(String.class));
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
+    private void updateRecycleView(List<Candidate> finalList,List<String> keyss){
+        new Recycleview_Candidate_config().setConfig(recyclerView,SearchCandidate.this,finalList,keyss);
+    }
+
     public void goToHome(View view) {
         Intent intent = new Intent(SearchCandidate.this, MainActivity.class);
         startActivity(intent);
@@ -94,15 +167,4 @@ public class SearchCandidate extends AppCompatActivity implements AdapterView.On
         startActivity(intent);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-        item = adapterView.getSelectedItemPosition();
-        item = item+1;
-        Toast.makeText(SearchCandidate.this, "Spinner Item" + item, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

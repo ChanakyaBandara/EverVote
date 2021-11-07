@@ -51,41 +51,41 @@ public class CandidateProfile extends AppCompatActivity {
             bottomNav.setSelectedItemId(R.id.nav_about); // change to whichever id should be default
         }
 
-//        if (savedInstanceState == null) {
-//            Bundle extras = getIntent().getExtras();
-//            if(extras == null) {
-//                CandidateID= null;
-//            } else {
-//                CandidateID= extras.getString("CandidateID");
-//            }
-//        } else {
-//            CandidateID= (String) savedInstanceState.getSerializable("CandidateID");
-//        }
-//
-//        candidateProfileName = (TextView) findViewById(R.id.candidateProfileName);
-//        candidateProfileDesc = (TextView) findViewById(R.id.candidateProfileDesc);
-//        candidateProfileFollowers = (TextView) findViewById(R.id.candidateProfileFollowers);
-//        candidateProfileParty = (TextView) findViewById(R.id.candidateProfileParty);
-//        candidateProfileImg = (ImageView) findViewById(R.id.candidateProfileImg);
-//        candidateFollowBtn = (Button) findViewById(R.id.candidateFollowBtn);
-//
-//        Follow follow = new Follow();
-//        follow.getFollowedIDbyInterface(CandidateID,followID -> {
-//            if (followID != null){
-//                FollowID = followID;
-//                Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_SHORT).show();
-//                candidateFollowBtn.setText("Unfollow");
-//                candidateFollowBtn.setBackgroundResource(R.drawable.btn_unfollow);
-//            }else {
-//                Toast.makeText(getApplicationContext(), "Not Followed", Toast.LENGTH_SHORT).show();
-//                candidateFollowBtn.setText("Follow");
-//                candidateFollowBtn.setBackgroundResource(R.drawable.btn_follow);
-//            }
-//        });
-//
-//        Query query = FirebaseDatabase.getInstance().getReference().child("Candidates").child(CandidateID);;
-//
-//        query.addValueEventListener(valueEventListener);
+       if (savedInstanceState == null) {
+           Bundle extras = getIntent().getExtras();
+           if(extras == null) {
+               CandidateID= null;
+           } else {
+               CandidateID= extras.getString("CandidateID");
+           }
+       } else {
+           CandidateID= (String) savedInstanceState.getSerializable("CandidateID");
+       }
+
+        candidateProfileName = (TextView) findViewById(R.id.candidateProfileName);
+        candidateProfileDesc = (TextView) findViewById(R.id.candidateProfileDesc);
+        candidateProfileFollowers = (TextView) findViewById(R.id.candidateProfileFollowers);
+        candidateProfileParty = (TextView) findViewById(R.id.candidateProfileParty);
+        candidateProfileImg = (ImageView) findViewById(R.id.candidateProfileImg);
+        candidateFollowBtn = (Button) findViewById(R.id.candidateFollowBtn);
+
+        Follow follow = new Follow();
+        follow.getFollowedIDbyInterface(CandidateID,followID -> {
+            if (followID != null){
+                FollowID = followID;
+                Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_SHORT).show();
+                candidateFollowBtn.setText("Unfollow");
+                candidateFollowBtn.setBackgroundResource(R.drawable.btn_unfollow);
+            }else {
+                Toast.makeText(getApplicationContext(), "Not Followed", Toast.LENGTH_SHORT).show();
+                candidateFollowBtn.setText("Follow");
+                candidateFollowBtn.setBackgroundResource(R.drawable.btn_follow);
+            }
+        });
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("Candidates").child(CandidateID);
+        query.addValueEventListener(valueEventListener);
+
 
     }
 
