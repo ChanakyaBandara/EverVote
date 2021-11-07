@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backlogin"
+        tools:context=".Feedback">
+
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/greeting"
+                android:layout_marginVertical="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/dot1"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/dot" />
+
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feedback"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/bold"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What are your thoughts? Let us know"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/regular"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/enterSec"
+                android:layout_below="@id/greeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/txtFeedbackTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your heading"
+                    android:inputType="textEmailAddress"
+                    android:textSize="15dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittextback"/>
+
+                <EditText
+                    android:id="@+id/txtFeedbackContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextback"
+                    android:hint="Please let us know your thoughts about us"
+                    android:gravity="top|left"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="13dp"
+                    android:textSize="15dp"
+                    android:paddingBottom="13dp"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:lines="7"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:scrollHorizontally="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bottomBar"
+                android:layout_below="@id/enterSec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="40dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:onClick="sendFeedback"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:text="Send"
+                    android:background="@drawable/btn_login"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/bold"
+                    android:textSize="15dp"/>
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
