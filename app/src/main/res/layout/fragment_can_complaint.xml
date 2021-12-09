@@ -109,8 +109,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/sendComplaint"
-                    android:onClick="sendComplainet"
+                    android:id="@+id/btnSendComplaint"
                     android:layout_marginHorizontal="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

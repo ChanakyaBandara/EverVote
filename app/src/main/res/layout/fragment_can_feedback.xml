@@ -111,7 +111,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:onClick="sendFeedback"
+                    android:id="@+id/btnSendFeedback"
                     android:layout_marginHorizontal="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

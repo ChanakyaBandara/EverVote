@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/candidateProfileName"
+            android:id="@+id/fragCandidateProfileName"
             android:layout_marginTop="25sp"
             android:layout_marginHorizontal="20sp"
             android:layout_width="match_parent"
@@ -23,12 +23,12 @@
 
         <androidx.core.widget.NestedScrollView
 
-            android:layout_below="@id/candidateProfileName"
+            android:layout_below="@id/fragCandidateProfileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_below="@id/candidateProfileName"
+                android:layout_below="@id/fragCandidateProfileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15sp"
@@ -52,7 +52,7 @@
                         android:orientation="vertical">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/candidateProfileImg"
+                            android:id="@+id/fragCandidateProfileImg"
                             android:layout_width="100sp"
                             android:layout_height="100dp"
                             android:layout_gravity="center"
@@ -85,8 +85,8 @@
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/candidateProfileFollowers"
-                                    android:layout_below="@id/candidateProfileName"
+                                    android:id="@+id/fragCandidateProfileFollowers"
+                                    android:layout_below="@id/fragCandidateProfileName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -101,14 +101,13 @@
                         </LinearLayout>
 
                         <Button
-                            android:id="@+id/candidateFollowBtn"
+                            android:id="@+id/fragCandidateFollowBtn"
                             android:layout_marginHorizontal="5sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="5dp"
                             android:text="Follow"
-                            android:onClick="followCandidate"
                             android:clickable="true"
                             android:background="@drawable/btn_login"
                             android:textColor="@color/white"
@@ -142,7 +141,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/candidateProfileParty"
+                                android:id="@+id/fragCandidateProfileParty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
@@ -178,7 +177,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/candidateProfileDesc"
+                                android:id="@+id/fragCandidateProfileDesc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
