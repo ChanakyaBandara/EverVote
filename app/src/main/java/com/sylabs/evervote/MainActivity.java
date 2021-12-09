@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
     private String currentUId;
     private TextView Username;
     public static String UserName;
-
+    private Spinner spinner;
+    private List<Post> PostList = new ArrayList<>();
+    private List<Post> SpinnerFilteredList = new ArrayList<>();
+    private List<String> followedPostIdList = new ArrayList<>();
+    private List<String> PostKeys = new ArrayList<String>();
+    private List<String> SpinnerFilteredKeys = new ArrayList<String>();
 
 
     @Override
@@ -44,35 +52,96 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
         Username = (TextView) findViewById(R.id.txtUserName);
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
         //Toast.makeText(dashboard.this, currentUId, Toast.LENGTH_LONG).show();
+        spinner = findViewById(R.id.dropdown2);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.searchCategories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerChangeHandler();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         Query query2 = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUId);
-
         query2.addListenerForSingleValueEvent(valueEventListener2);
 
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Posts");
-
         query.addListenerForSingleValueEvent(valueEventListener);
+
+        Query query3 = FirebaseDatabase.getInstance().getReference().child("Followers").orderByChild("userId").equalTo(currentUId);
+        query3.addListenerForSingleValueEvent(valueEventListener3);
     }
+
+    private void spinnerChangeHandler() {
+        Log.d("ABC__test11",SpinnerFilteredKeys.toString());
+        Log.d("ABC__test11",PostList.toString());
+        int items = spinner.getSelectedItemPosition();
+        switch(items) {
+            case 1:
+                getFollowedList();
+                break;
+            case 2:
+                getUnFollowedList();
+                break;
+            case 0:
+            default:
+                for (Post post : PostList){
+                    SpinnerFilteredKeys.add(post.getCID());
+                }
+                SpinnerFilteredList = new ArrayList<>(PostList);
+        }
+        Log.d("ABC_test",SpinnerFilteredKeys.toString());
+        updateRecycleView(SpinnerFilteredList,SpinnerFilteredKeys);
+    }
+
+    private void getFollowedList() {
+        SpinnerFilteredList.clear();
+        SpinnerFilteredKeys.clear();
+        for (Post post : PostList){
+            if(followedPostIdList.contains(post.getCID())){
+                SpinnerFilteredList.add(post);
+                SpinnerFilteredKeys.add(post.getCID());
+            }
+        }
+    }
+
+    private void getUnFollowedList() {
+        SpinnerFilteredList.clear();
+        SpinnerFilteredKeys.clear();
+        for (Post post : PostList){
+            if(!followedPostIdList.contains(post.getCID())){
+                SpinnerFilteredList.add(post);
+                SpinnerFilteredKeys.add(post.getCID());
+            }
+        }
+    }
+
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()){
                 //Toast.makeText(dashboard.this, "Test Query", Toast.LENGTH_LONG).show();
-                Log.d("ABC",dataSnapshot.toString());
+                Log.d("ABC test",dataSnapshot.toString());
                 Postlist.clear();
-                List<String> Keys = new ArrayList<String>();
+                PostKeys.clear();
+                //List<String> Keys = new ArrayList<String>();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    Log.d("ABC",keyNode.toString());
-                    Log.d("ABC",keyNode.getKey());
+//                    Log.d("ABC",keyNode.toString());
+//                    Log.d("ABC",keyNode.getKey());
                     Post post = new Post();
                     post.setID(keyNode.getKey());
                     post.setTitle(keyNode.child("Title").getValue(String.class));
@@ -82,10 +151,11 @@ public class MainActivity extends AppCompatActivity {
                     post.setCandidateName(keyNode.child("CandidateName").getValue(String.class));
                     post.setCandidateParty(keyNode.child("CandidateParty").getValue(String.class));
                     post.setImgURL(keyNode.child("ImgURL").getValue(String.class));
+                    post.setCID(keyNode.child("CID").getValue(String.class));
                     Postlist.add(post);
-                    Keys.add(keyNode.getKey());
+                    PostKeys.add(keyNode.getKey());
                 }
-                new Recycleview_Post_config().setConfig(recyclerView,MainActivity.this,Postlist,Keys);
+                spinnerChangeHandler();
             }else{
                 Toast.makeText(MainActivity.this, "No Data Found !", Toast.LENGTH_LONG).show();
             }
@@ -115,6 +185,28 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    ValueEventListener valueEventListener3 = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            Log.d("ABC test22",dataSnapshot.toString());
+            if(dataSnapshot.exists() && dataSnapshot.hasChildren()){
+                for(DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    followedPostIdList.add(keyNode.child("CID").getValue(String.class));
+                }
+            }
+            Log.d("ABC_test22",followedPostIdList.toString());
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
+    private void updateRecycleView(List<Post> finalList,List<String> keyss){
+        new Recycleview_Post_config().setConfig(recyclerView,MainActivity.this,finalList,keyss);
+    }
 
     public void goToSearch(View view) {
         Intent intent = new Intent(MainActivity.this, SearchCandidate.class);

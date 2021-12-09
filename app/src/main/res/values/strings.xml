@@ -6,4 +6,11 @@
         <item>Following</item>
         <item>Not following</item>
     </string-array>
+
+    <string-array name="searchTypes">
+        <item>All</item>
+        <item>Event</item>
+        <item>Policies</item>
+        <item>Updates</item>
+    </string-array>
 </resources>

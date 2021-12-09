@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="125sp"
+    android:padding="5sp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        card_view:cardElevation="0dp"
+        card_view:cardCornerRadius="10sp"
+        card_view:cardBackgroundColor="@color/lightgray">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10sp"
+            android:paddingVertical="5sp">
+
+            <LinearLayout
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/service_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/medium"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginHorizontal="10sp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/service_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/medium"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginHorizontal="10sp"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/service_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/medium"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginHorizontal="10sp"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

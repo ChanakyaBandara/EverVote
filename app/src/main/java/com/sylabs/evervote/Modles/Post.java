@@ -9,11 +9,12 @@ public class Post {
     private String CandidateName;
     private String CandidateParty;
     private String Time;
+    private String CID;
 
     public Post() {
     }
 
-    public Post(String ID, String title, String description, String imgURL, String date, String candidateName, String candidateParty, String time) {
+    public Post(String ID, String title, String description, String imgURL, String date, String candidateName, String candidateParty, String time, String CID) {
         this.ID = ID;
         Title = title;
         Description = description;
@@ -22,6 +23,15 @@ public class Post {
         CandidateName = candidateName;
         CandidateParty = candidateParty;
         Time = time;
+        CID = CID;
+    }
+
+    public String getCID() {
+        return CID;
+    }
+
+    public void setCID(String CID) {
+        this.CID = CID;
     }
 
     public String getID() {
