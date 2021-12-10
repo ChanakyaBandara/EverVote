@@ -11,11 +11,11 @@
 
         <TextView
             android:id="@+id/fragCandidateProfileName"
-            android:layout_marginTop="25sp"
-            android:layout_marginHorizontal="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="25sp"
             android:fontFamily="@font/bold"
             android:text="Candidate Profile"
             android:textColor="@color/black"
@@ -23,27 +23,27 @@
 
         <androidx.core.widget.NestedScrollView
 
-            android:layout_below="@id/fragCandidateProfileName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragCandidateProfileName">
 
             <LinearLayout
-                android:layout_below="@id/fragCandidateProfileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/fragCandidateProfileName"
                 android:layout_marginHorizontal="15sp"
                 android:layout_marginTop="15sp"
+                android:background="@drawable/ripple"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/ripple"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:elevation="2sp"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="8dp"
-                    android:elevation="2sp"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
@@ -61,18 +61,18 @@
                             android:src="@drawable/pic2" />
 
                         <LinearLayout
-                            android:weightSum="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingBottom="10sp">
+                            android:paddingBottom="10sp"
+                            android:weightSum="1">
 
 
                             <LinearLayout
-                                android:layout_weight="1"
                                 android:layout_width="0sp"
-                                android:layout_gravity="center"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -86,9 +86,9 @@
 
                                 <TextView
                                     android:id="@+id/fragCandidateProfileFollowers"
-                                    android:layout_below="@id/fragCandidateProfileName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_below="@id/fragCandidateProfileName"
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/bold"
                                     android:text=""
@@ -102,95 +102,205 @@
 
                         <Button
                             android:id="@+id/fragCandidateFollowBtn"
-                            android:layout_marginHorizontal="5sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginHorizontal="5sp"
                             android:layout_marginBottom="5dp"
-                            android:text="Follow"
-                            android:clickable="true"
                             android:background="@drawable/btn_login"
-                            android:textColor="@color/white"
+                            android:clickable="true"
                             android:fontFamily="@font/bold"
-                            android:textSize="15dp"/>
+                            android:text="Follow"
+                            android:textColor="@color/white"
+                            android:textSize="15dp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
+                <ScrollView
+                    android:id="@+id/details"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="8dp"
-                    android:elevation="2sp"
-                    app:cardUseCompatPadding="true">
+                    android:layout_above="@id/logout"
+                    android:layout_below="@id/profileImage"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="10dp"
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="15sp"
                         android:orientation="vertical">
 
-
-
-                        <LinearLayout
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5sp"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="8dp"
+                            app:cardUseCompatPadding="true">
 
-                            <TextView
-                                android:id="@+id/fragCandidateProfileParty"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:fontFamily="@font/medium"
-                                android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:fontFamily="@font/regular"
-                                android:text="Political Party"
-                                android:textColor="@color/black"
-                                android:textSize="9sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginLeft="5sp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/bold"
+                                    android:text="Name"
+                                    android:textColor="@color/grey"
+                                    android:textSize="18dp" />
 
-                        </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:orientation="horizontal">
 
-                        <LinearLayout
+                                    <TextView
+                                        android:id="@+id/txtFragProfileName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:fontFamily="@font/medium"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5sp"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="8dp"
+                            app:cardUseCompatPadding="true">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:fontFamily="@font/bold"
-                                android:text="Political History"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
 
-                            <TextView
-                                android:id="@+id/fragCandidateProfileDesc"
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginLeft="5sp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/bold"
+                                    android:text="Party"
+                                    android:textColor="@color/grey"
+                                    android:textSize="18dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txtFragParty"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:fontFamily="@font/medium"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="8dp"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:fontFamily="@font/regular"
-                                android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
 
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginLeft="5sp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/bold"
+                                    android:text="History"
+                                    android:textColor="@color/grey"
+                                    android:textSize="18dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txtFragHistory"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:fontFamily="@font/medium"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+
+
 
                     </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                </ScrollView>
 
             </LinearLayout>
 

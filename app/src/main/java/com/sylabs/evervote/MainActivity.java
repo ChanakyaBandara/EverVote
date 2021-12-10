@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerChangeHandler();
+                //spinnerChangeHandler();
             }
 
             @Override
@@ -155,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
                     Postlist.add(post);
                     PostKeys.add(keyNode.getKey());
                 }
-                spinnerChangeHandler();
+                new Recycleview_Post_config().setConfig(recyclerView,MainActivity.this,Postlist,PostKeys);
+                //spinnerChangeHandler();
             }else{
                 Toast.makeText(MainActivity.this, "No Data Found !", Toast.LENGTH_LONG).show();
             }

@@ -43,13 +43,13 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_can_about, container, false);
-
-        candidateProfileName = (TextView) rootView.findViewById(R.id.fragCandidateProfileName);
-        candidateProfileDesc = (TextView) rootView.findViewById(R.id.fragCandidateProfileDesc);
+        //name, mobile, history,party
+        candidateProfileName = (TextView) rootView.findViewById(R.id.txtFragProfileName);
         candidateProfileFollowers = (TextView) rootView.findViewById(R.id.fragCandidateProfileFollowers);
-        candidateProfileParty = (TextView) rootView.findViewById(R.id.fragCandidateProfileParty);
         candidateProfileImg = (ImageView) rootView.findViewById(R.id.fragCandidateProfileImg);
         candidateFollowBtn = (Button) rootView.findViewById(R.id.fragCandidateFollowBtn);
+        candidateProfileDesc = (TextView) rootView.findViewById(R.id.txtFragHistory);
+        candidateProfileParty = (TextView) rootView.findViewById(R.id.txtFragParty);
 
         candidateFollowBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
